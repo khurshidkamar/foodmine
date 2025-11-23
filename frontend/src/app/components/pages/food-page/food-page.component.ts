@@ -6,10 +6,11 @@ import { RatingModule } from 'primeng/rating';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { CartService } from '../../../services/cart.service';
+import { NotFoundComponent } from "../../partials/not-found/not-found.component";
 
 @Component({
   selector: 'app-food-page',
-  imports: [RatingModule, FormsModule, RouterModule, CommonModule],
+  imports: [RatingModule, FormsModule, RouterModule, CommonModule, NotFoundComponent],
   templateUrl: './food-page.component.html',
   styleUrl: './food-page.component.css'
 })

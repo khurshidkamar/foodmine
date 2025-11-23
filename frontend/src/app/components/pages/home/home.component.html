@@ -1,5 +1,9 @@
 <app-search />
 <app-tags />
+<app-not-found
+  [visible]="!foods || !foods.length"
+  resetLinkText="Reset Search"
+/>
 <ul>
   @for (food of foods; track food) {
   <li>
