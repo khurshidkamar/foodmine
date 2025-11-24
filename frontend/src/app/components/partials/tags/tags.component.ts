@@ -10,8 +10,10 @@ import { RouterLink } from '@angular/router';
   styleUrl: './tags.component.css'
 })
 export class TagsComponent {
-tags?: Tag[];
-constructor (foodService: FoodService) {
-  this.tags = foodService.getAllTags();
-}
+  tags?: Tag[];
+  constructor(foodService: FoodService) {
+    foodService.getAllTags().subscribe(serverTags => {
+      this.tags = serverTags;
+    });
+  }
 }
