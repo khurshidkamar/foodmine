@@ -3,17 +3,21 @@
     <a routerLink="/" class="logo">Food Mine!</a>
     <nav>
       <ul>
+        @if(!isAuth){
         <li>
           <a routerLink="/login">Login</a>
         </li>
+        } @if(user.token){
         <li class="menu-container">
-          <a routerLink="/dashboard">John</a>
+          <a routerLink="/dashboard">{{ user.name }}</a>
           <div class="menu">
             <a routerLink="/profile">Profile</a>
             <a routerLink="/orders">Orders</a>
-            <a>Logout</a>
+            <a (click)="logout()">Logout</a>
           </div>
         </li>
+        }
+
         <li>
           <a routerLink="/cart-page"
             >Cart @if(cartQuantity){ <span>{{ cartQuantity }}</span>
