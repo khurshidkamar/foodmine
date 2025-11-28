@@ -25,19 +25,8 @@ router.post("/login", expressAsyncHandler(
     async (req, res) => {
         const { email, password } = req.body;
         const user = await UserModel.findOne({ email });
-        try {
-            const hashedPassword = await bcrypt.hash("abcde", 10);
-
-            console.log('✅ HASH GENERATED SUCCESSFULLY:');
-            console.log(hashedPassword);
-
-        } catch (error) {
-            console.error('An error occurred during hashing:', error);
-        }
-
         if (user && (await bcrypt.compare(password, user.password))) {
             res.send(generateTokenResponse(user));
-
         }
 
         else {
