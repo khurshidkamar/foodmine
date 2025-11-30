@@ -4,6 +4,8 @@ import foodRouter from './routers/food.router';
 import userRouter from './routers/user.router';
 import orderRouter from './routers/order.router'
 import dotenv from 'dotenv';
+import crypto from 'crypto';
+
 dotenv.config();
 
 import { dbConnect } from "./configs/database.config";

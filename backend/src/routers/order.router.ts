@@ -27,4 +27,44 @@ router.post("/create", expressAsyncHandler(
     }
 ));
 
+router.get("/newOrderForCurrentUser", expressAsyncHandler(
+    async (req: any, res) => {
+        const order = await getNewOrderForCurrentUser(req);
+        if (order) res.send(order);
+        else res.status(HTTP_BAD_REQUEST).send();
+    }
+));
+
+
+router.post("/pay", expressAsyncHandler(
+    async (req: any, res) => {
+        const { paymentId } = req.body;
+        const order = await getNewOrderForCurrentUser(req);
+        if (!order) {
+            res.status(HTTP_BAD_REQUEST).send('Order not Found');
+            return;
+        }
+        order.paymentId = paymentId;
+        order.status = OrderStatus.PAYED;
+        await order.save();
+
+        res.send(order._id);
+    })
+
+);
+
+router.get("/track/:id", expressAsyncHandler(
+    async (req: any, res) => {
+        const order = await OrderModel.findById(req.params.id);
+        res.send(order);
+    }
+))
+async function getNewOrderForCurrentUser(req: any) {
+    return await OrderModel.findOne({
+        user: req.user.id,
+        status: OrderStatus.NEW
+    });
+
+}
+
 export default router;
